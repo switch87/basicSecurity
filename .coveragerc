@@ -1,0 +1,8 @@
+[run]
+omit =
+    .cache
+    */dist-packages/*
+	.tox/*
+	.idea
+[html]
+directory = coverage_html_report

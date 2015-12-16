@@ -1,0 +1,9 @@
+.cache/
+.coverage
+.idea/
+.tox/
+File_*
+Private_*
+Public_*
+coverage_html_report/
+*.pyc
