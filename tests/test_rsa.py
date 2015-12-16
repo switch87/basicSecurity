@@ -37,3 +37,18 @@ def test_string_can_be_validated_with_md5_signature(rsacs):
 
     decrypted = rsacs.decrypt_private(encrypted)
     assert rsacs.verify_signature(decrypted, signature)
+
+
+def test_controller_can_be_generated_with_key_files(rsacs):
+    rsacs.save_keys('Public_A', 'Private_A')
+
+    rsacc = RsaController("c", bits=512, pubfile='Public_A')
+    rsacs2 = RsaController("m", bits=512, privfile='Private_A')
+
+    assert rsacs.pubkey == rsacc.pubkey
+    assert rsacs.privkey == rsacs2.privkey
+
+
+def test_controller_type_must_be_defined():
+    with pytest.raises(TypeError):
+        RsaController("d", bits=512)

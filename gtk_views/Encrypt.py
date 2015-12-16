@@ -66,11 +66,11 @@ class EncryptionWindow:
         gtk.main()
 
     def encrypt(self, widget):
-        self.label1.set_text(self.aes_controller.encode_aes(self.input_to_encrypt.get_text()))
+        self.label1.set_text(self.aes_controller.encrypt(self.input_to_encrypt.get_text()))
 
         # Programma gebruikt de symmetric key om de boodschap te encrypteren,
         # en saved het resultaat in een file (File_1)
-        open(self.file_1, 'w').write(self.aes_controller.encode_aes(self.input_to_encrypt.get_text()))
+        open(self.file_1, 'w').write(self.aes_controller.encrypt(self.input_to_encrypt.get_text()))
 
         # Programma encrypteert de symmetric key met de public key van Bob,
         # en saved het resultaat in een file (File_2)

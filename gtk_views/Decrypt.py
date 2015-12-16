@@ -58,7 +58,7 @@ class DecryptionWindow:
         # Programma gebruikt die symmetrische key om File_1 te decrypteren
         # om terug de verstuurde boodschap te verkrijgen, en toont die
         # boodschap dan ook op het scherm
-        self.text = self.aes_controller.decode_aes(open(self.file_1, 'r').read())
+        self.text = self.aes_controller.decrypt(open(self.file_1, 'r').read())
 
         # Programma berekent zelf de hash van die boodschap
         # Programma gebruikt Public_A om File_3 te decrypteren,

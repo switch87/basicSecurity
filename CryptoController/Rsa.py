@@ -50,12 +50,6 @@ class RsaController():
     def decrypt_private(self, string):
         return rsa.decrypt(string, self.privkey)
 
-    def encrypt_private(self, string):
-        return rsa.encrypt(string, self.privkey)
-
-    def decrypt_public(self, string):
-        return self.pubkey.decrypt(string)
-
     def sign_with_md5(self, message):
         return rsa.sign(message, self.privkey, "MD5")
 
