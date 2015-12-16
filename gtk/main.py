@@ -1,8 +1,9 @@
 import gtk
 import pygtk
 
-from gtk_views.Decrypt import DecryptionWindow
-from gtk_views.Encrypt import EncryptionWindow
+from ui.Decrypt import DecryptionWindow
+
+from gtk.Encrypt import EncryptionWindow
 
 pygtk.require('2.0')
 
