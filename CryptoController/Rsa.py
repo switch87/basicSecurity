@@ -25,6 +25,15 @@ class RsaController():
         else:
             raise TypeError
 
+    def update_keys(self, privkey=None, pubkey=None, bits=1024, privfile=None, pubfile=None):
+        if pubfile:
+            pubkey = self.load_public_key(pubfile)
+        if privfile:
+            privkey = self.load_private_key(privfile)
+
+        (self.pubkey, self.privkey) = (pubkey or self.pubkey, privkey or self.privkey)
+
+
     def save_keys(self, file_public, file_private=None):
         if self.privkey is not None:
             open(file_private, 'w').write(self.privkey._save_pkcs1_pem())

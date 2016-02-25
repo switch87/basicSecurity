@@ -13,7 +13,7 @@ def save_to_file(data, file):
         open(file, 'w').write(data)
 
 
-def select_file(qfiledialog):
+def select_file():
     dialog = QtGui.QFileDialog()
     dialog.setFileMode(QtGui.QFileDialog.AnyFile)
     dialog.setOption(QtGui.QFileDialog.ShowDirsOnly, False)

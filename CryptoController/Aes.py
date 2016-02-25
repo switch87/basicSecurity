@@ -8,6 +8,15 @@ class AesController():
     PADDING = '{'
 
     def __init__(self, cipher=None, **kwargs):
+        """
+        Initialize new AES Controller.
+        If cipher is not given, generate a random cipher, else save given cipher.
+
+        :param cipher: cipher
+        :param kwargs:
+        :return: None
+        """
+
         if cipher is None:
             self.cipher = self.generate_random_cipher()
         elif isinstance(cipher, str):
@@ -35,6 +44,12 @@ class AesController():
             outfile.write(self.cipher.encrypt(chunk))
 
     def decrypt(self, e):
+        """
+        Decrypt AES encrypted string
+        :param e: string
+        :return: string
+        """
+
         return self.cipher.decrypt(base64.b64decode(e)).rstrip(self.PADDING)
 
     def decrypt_file(self, infile, outfile):
@@ -48,8 +63,13 @@ class AesController():
                 finished = True
             outfile.write(chunk)
 
-    # generate a random secret key
     @classmethod
     def generate_random_cipher(cls, **kwargs):
+        """
+        Generate a random secret key
+        :param kwargs:
+        :return: cipher
+        """
+
         cls.secret = os.urandom(cls.BLOCK_SIZE)
         return AES.new(cls.secret)

@@ -13,7 +13,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>511</width>
+    <width>588</width>
     <height>301</height>
    </rect>
   </property>
@@ -36,7 +36,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>410</x>
+     <x>490</x>
      <y>260</y>
      <width>81</width>
      <height>27</height>
@@ -52,7 +52,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>330</x>
+     <x>410</x>
      <y>260</y>
      <width>81</width>
      <height>27</height>
@@ -65,7 +65,7 @@
   <widget class="QGroupBox" name="group_box_source">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>350</x>
      <y>10</y>
      <width>181</width>
      <height>61</height>
@@ -112,7 +112,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>231</width>
+     <width>331</width>
      <height>321</height>
     </rect>
    </property>
@@ -124,7 +124,7 @@
      <rect>
       <x>0</x>
       <y>30</y>
-      <width>231</width>
+      <width>321</width>
       <height>251</height>
      </rect>
     </property>
@@ -338,6 +338,58 @@
        </property>
       </widget>
      </widget>
+     <widget class="QPushButton" name="button_select_own_private">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>20</y>
+        <width>85</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select File</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_select_own_public">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>60</y>
+        <width>85</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select File</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_select_rec_private">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>120</y>
+        <width>85</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select File</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_select_rec_public">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>160</y>
+        <width>85</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select File</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -347,7 +399,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>350</x>
      <y>140</y>
      <width>221</width>
      <height>111</height>
@@ -357,7 +409,7 @@
   <widget class="QPushButton" name="button_file_select">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>350</x>
      <y>70</y>
      <width>81</width>
      <height>27</height>
@@ -370,7 +422,7 @@
   <widget class="QLabel" name="label_selected_file">
    <property name="geometry">
     <rect>
-     <x>280</x>
+     <x>360</x>
      <y>110</y>
      <width>91</width>
      <height>17</height>
@@ -383,7 +435,7 @@
   <widget class="QCheckBox" name="check_box_md5">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>350</x>
      <y>260</y>
      <width>51</width>
      <height>22</height>
