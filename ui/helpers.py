@@ -1,22 +1,29 @@
 import os
 import re
+
 from PySide import QtGui
 
 
 def get_file_name(file_dir):
     return re.split(r'/', file_dir)[-1]
 
-def save_to_file(data, file):
-    check_file(file)
-    open(file, 'w').write(data)
 
-def select_file(QFileDialo):
+def save_to_file(data, file):
+    if check_file(file):
+        open(file, 'w').write(data)
+
+
+def select_file():
     dialog = QtGui.QFileDialog()
     dialog.setFileMode(QtGui.QFileDialog.AnyFile)
     dialog.setOption(QtGui.QFileDialog.ShowDirsOnly, False)
     dialog.exec_()
     return dialog.selectedFiles()[0] or None
 
+
 def check_file(file):
-    if not os.path.isfile(file):
-                os.mknod(file)
+    if not os.path.isfile(file) and not os.path.isdir(file):
+        os.mknod(file)
+    elif os.path.isdir(file):
+        return False
+    return True

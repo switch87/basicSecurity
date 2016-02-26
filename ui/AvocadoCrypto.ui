@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <author>Gert Pellin</author>
+ <class>dialog</class>
+ <widget class="QDialog" name="dialog">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -9,7 +13,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>511</width>
+    <width>588</width>
     <height>301</height>
    </rect>
   </property>
@@ -18,7 +22,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../icon.png</normaloff>../icon.png</iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
   <property name="statusTip">
    <string/>
@@ -26,7 +30,23 @@
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
   </property>
-  <widget class="QPushButton" name="ButtonDecrypt">
+  <widget class="QPushButton" name="button_decrypt">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>260</y>
+     <width>81</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Decrypt</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_encrypt">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -39,29 +59,13 @@
     </rect>
    </property>
    <property name="text">
-    <string>Decrypt</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="ButtonEncrypt">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>330</x>
-     <y>260</y>
-     <width>81</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
     <string>Encrypt</string>
    </property>
   </widget>
-  <widget class="QGroupBox" name="groupBoxSource">
+  <widget class="QGroupBox" name="group_box_source">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>350</x>
      <y>10</y>
      <width>181</width>
      <height>61</height>
@@ -70,7 +74,7 @@
    <property name="title">
     <string>Source</string>
    </property>
-   <widget class="QRadioButton" name="radioButtonTextSource">
+   <widget class="QRadioButton" name="radio_button_text_source">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -86,7 +90,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButtonFileSource">
+   <widget class="QRadioButton" name="radio_button_file_source">
     <property name="geometry">
      <rect>
       <x>101</x>
@@ -103,35 +107,35 @@
     </property>
    </widget>
   </widget>
-  <widget class="QGroupBox" name="groupBox_2">
+  <widget class="QGroupBox" name="group_box_keys">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>231</width>
+     <width>331</width>
      <height>321</height>
     </rect>
    </property>
    <property name="title">
     <string>Keys</string>
    </property>
-   <widget class="QTabWidget" name="tabWidget">
+   <widget class="QTabWidget" name="tab_widget_keys">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>30</y>
-      <width>231</width>
+      <width>321</width>
       <height>251</height>
      </rect>
     </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="tabTools">
+    <widget class="QWidget" name="tab_tools">
      <attribute name="title">
       <string>Tools</string>
      </attribute>
-     <widget class="QPushButton" name="ButtonGenKeys">
+     <widget class="QPushButton" name="button_gen_keys">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -144,7 +148,7 @@
        <string>Generate all keys</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="ButtonGenAes">
+     <widget class="QPushButton" name="button_gen_aes">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -157,7 +161,7 @@
        <string>Generate AES</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="ButtonGenOwnRsa">
+     <widget class="QPushButton" name="button_gen_own_rsa">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -170,7 +174,7 @@
        <string>Generate own RSA</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="ButtonGenResRsa">
+     <widget class="QPushButton" name="button_gen_rec_rsa">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -183,7 +187,7 @@
        <string>Generate Sender/Receiver RSA</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="ButtonSwitchRsa">
+     <widget class="QPushButton" name="button_switch_rsa">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -200,11 +204,11 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tabRsa">
+    <widget class="QWidget" name="tab_rsa">
      <attribute name="title">
       <string>RSA</string>
      </attribute>
-     <widget class="QGroupBox" name="groupBoxOwnAes">
+     <widget class="QGroupBox" name="group_box_own_rsa">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -214,9 +218,9 @@
        </rect>
       </property>
       <property name="title">
-       <string>Own AES</string>
+       <string>Own RSA</string>
       </property>
-      <widget class="QLineEdit" name="lineOwnPrivate">
+      <widget class="QLineEdit" name="line_own_private">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -229,7 +233,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineOwnPublic">
+      <widget class="QLineEdit" name="line_own_public">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -242,7 +246,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="label_own_private">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -255,7 +259,7 @@
         <string>Private:</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="label_own_public">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -269,7 +273,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBoxResAes">
+     <widget class="QGroupBox" name="group_box_rec_rsa">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -279,9 +283,9 @@
        </rect>
       </property>
       <property name="title">
-       <string>Sender / Receiver AES</string>
+       <string>Sender / Receiver RSA</string>
       </property>
-      <widget class="QLineEdit" name="lineResPrivate">
+      <widget class="QLineEdit" name="line_rec_private">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -294,20 +298,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineResPublic">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>80</x>
-         <y>60</y>
-         <width>131</width>
-         <height>27</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="label_rec_private">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -320,7 +311,7 @@
         <string>Private:</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_4">
+      <widget class="QLabel" name="label_rec_public">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -333,27 +324,92 @@
         <string>Public:</string>
        </property>
       </widget>
+      <widget class="QLineEdit" name="line_rec_public">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>60</y>
+         <width>131</width>
+         <height>27</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="button_select_own_private">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>20</y>
+        <width>85</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select File</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_select_own_public">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>60</y>
+        <width>85</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select File</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_select_rec_private">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>120</y>
+        <width>85</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select File</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_select_rec_public">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>160</y>
+        <width>85</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select File</string>
+      </property>
      </widget>
     </widget>
    </widget>
   </widget>
-  <widget class="QPlainTextEdit" name="plainTextEdit">
+  <widget class="QPlainTextEdit" name="plain_text_edit">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>350</x>
      <y>140</y>
      <width>221</width>
      <height>111</height>
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="ButtonFileSelect">
+  <widget class="QPushButton" name="button_file_select">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>350</x>
      <y>70</y>
      <width>81</width>
      <height>27</height>
@@ -363,12 +419,12 @@
     <string>Select File</string>
    </property>
   </widget>
-  <widget class="QLabel" name="labelSelectedFile">
+  <widget class="QLabel" name="label_selected_file">
    <property name="geometry">
     <rect>
-     <x>280</x>
+     <x>360</x>
      <y>110</y>
-     <width>211</width>
+     <width>91</width>
      <height>17</height>
     </rect>
    </property>
@@ -376,12 +432,12 @@
     <string>(no file selected)</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox">
+  <widget class="QCheckBox" name="check_box_md5">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>350</x>
      <y>260</y>
-     <width>61</width>
+     <width>51</width>
      <height>22</height>
     </rect>
    </property>
@@ -391,38 +447,5 @@
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>ButtonDecrypt</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>exec()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>280</x>
-     <y>273</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>199</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>ButtonEncrypt</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>exec()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>360</x>
-     <y>273</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>255</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
