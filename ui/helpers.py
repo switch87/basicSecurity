@@ -2,6 +2,7 @@ import os
 import re
 
 from PySide import QtGui
+from tr import tr
 
 
 def get_file_name(file_dir):
@@ -13,10 +14,12 @@ def save_to_file(data, file):
         open(file, 'w').write(data)
 
 
-def select_file():
+def select_file(namefilter=None):
     dialog = QtGui.QFileDialog()
     dialog.setFileMode(QtGui.QFileDialog.AnyFile)
     dialog.setOption(QtGui.QFileDialog.ShowDirsOnly, False)
+    if namefilter:
+        dialog.setNameFilter(namefilter)
     dialog.exec_()
     return dialog.selectedFiles()[0] or None
 

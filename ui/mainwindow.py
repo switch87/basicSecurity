@@ -1,3 +1,5 @@
+from PySide import QtGui, QtCore
+
 from ui.AvocadoCrypto_ui import Ui_dialog
 from ui.uicontroller import UiController
 
@@ -37,3 +39,9 @@ class MainWindow(Ui_dialog):
         # AES
         self.button_load_aes.clicked.connect(self.controller.load_aes)
         self.button_save_aes.clicked.connect(self.controller.save_aes)
+
+        # stegano
+        self.check_box_stegano.stateChanged.connect(self.controller.toggle_stegano)
+        self.button_image_select.clicked.connect(self.controller.select_image)
+
+

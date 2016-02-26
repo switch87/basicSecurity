@@ -1,6 +1,6 @@
 import os
 
-from PySide import QtGui
+from PySide import QtGui, QtCore
 from rsa import VerificationError
 
 from CryptoController.Aes import AesController
@@ -21,6 +21,10 @@ class UiController():
         self.rec_rsa_priv = None
 
         self.md5 = False
+        self.stegano = False
+        
+        self.stegano_image = "/home/switch87/workplace/pythonDjango/basicSecurity/icon.png"
+        self.set_stegano_preview()
 
         self.update_ui()
 
@@ -41,16 +45,19 @@ class UiController():
 
         # check if keys can be switched
         self.ui.button_switch_rsa.setEnabled(
-                True if (
-                    self.rec_rsa_priv and self.rec_rsa_pub and
-                    self.own_rsa_priv and self.own_rsa_pub)
-                else False)
+            True if (
+                self.rec_rsa_priv and self.rec_rsa_pub and
+                self.own_rsa_priv and self.own_rsa_pub)
+            else False)
 
         self.ui.button_decrypt.setEnabled(True if self.aes else False)
         self.ui.button_encrypt.setEnabled(True if self.aes else False)
 
         self.ui.button_save_aes.setEnabled(True if self.aes and self.rec_rsa_pub else False)
         self.ui.button_load_aes.setEnabled(True if self.own_rsa_priv else False)
+
+        self.ui.button_image_select.setEnabled(True if self.ui.radio_button_file_source.isChecked() and self.stegano
+                                          else False)
 
         self.ui.line_own_public.setText(self.own_rsa_pub)
         self.ui.line_own_private.setText(self.own_rsa_priv)
@@ -80,7 +87,7 @@ class UiController():
         Check if selected file does exist
         """
 
-        file = select_file() 
+        file = select_file()
         if file:
             self.fileName = file
             self.ui.label_selected_file.setText(get_file_name(self.fileName))
@@ -91,14 +98,14 @@ class UiController():
         select file for own private RSA key
         :return: None
         """
-        
+
         file = select_file()
         if file:
             self.own_rsa_priv = file
             if self.own_rsa:
                 self.own_rsa.update_keys(privfile=self.own_rsa_priv)
             else:
-                self.own_rsa = RsaController('m',privfile=self.own_rsa_priv, pubfile=self.own_rsa_pub)
+                self.own_rsa = RsaController('m', privfile=self.own_rsa_priv, pubfile=self.own_rsa_pub)
             self.update_ui()
 
     def select_own_public_file(self):
@@ -113,7 +120,7 @@ class UiController():
             if self.own_rsa:
                 self.own_rsa.update_keys(pubfile=self.own_rsa_pub)
             else:
-                self.own_rsa = RsaController('m',privfile=self.own_rsa_priv, pubfile=self.own_rsa_pub)
+                self.own_rsa = RsaController('m', privfile=self.own_rsa_priv, pubfile=self.own_rsa_pub)
             self.update_ui()
 
     def select_rec_private_file(self):
@@ -128,7 +135,7 @@ class UiController():
             if self.rec_rsa:
                 self.rec_rsa.update_keys(privfile=self.rec_rsa_priv)
             else:
-                self.rec_rsa = RsaController('m',privfile=self.rec_rsa_priv, pubfile=self.rec_rsa_pub)
+                self.rec_rsa = RsaController('m', privfile=self.rec_rsa_priv, pubfile=self.rec_rsa_pub)
             self.update_ui()
 
     def select_rec_public_file(self):
@@ -143,7 +150,7 @@ class UiController():
             if self.rec_rsa:
                 self.rec_rsa.update_keys(pubfile=self.rec_rsa_pub)
             else:
-                self.rec_rsa = RsaController('m',privfile=self.rec_rsa_priv, pubfile=self.rec_rsa_pub)
+                self.rec_rsa = RsaController('m', privfile=self.rec_rsa_priv, pubfile=self.rec_rsa_pub)
             self.update_ui()
 
     def generate_all_keys(self):
@@ -230,8 +237,8 @@ class UiController():
 
             if self.md5:
                 try:
-                    md5_file = self.fileName+".md5"
-                    self.rec_rsa.verify_signature(open(out_file,'rb').read(), open(md5_file, 'rb').read())
+                    md5_file = self.fileName + ".md5"
+                    self.rec_rsa.verify_signature(open(out_file, 'rb').read(), open(md5_file, 'rb').read())
                     msgBox = QtGui.QMessageBox()
                     msgBox.setText("The MD5 signature passed")
                     msgBox.exec_()
@@ -257,8 +264,8 @@ class UiController():
                 self.aes.encrypt_file(open(self.fileName, 'rb'), open(out_file, 'wb'))
 
                 if self.md5:
-                    md5_file = out_file+".md5"
-                    save_to_file(self.own_rsa.sign_with_md5(open(self.fileName, 'rb')),md5_file)
+                    md5_file = out_file + ".md5"
+                    save_to_file(self.own_rsa.sign_with_md5(open(self.fileName, 'rb')), md5_file)
 
     def encrypt(self):
         """
@@ -335,8 +342,8 @@ class UiController():
             self.rec_rsa_pub = self.own_rsa_pub
             self.own_rsa_priv = temp_private
             self.own_rsa_pub = temp_public
-            self.own_rsa.update_keys(privfile=self.own_rsa_priv,pubfile=self.own_rsa_pub)
-            self.rec_rsa.update_keys(privfile=self.rec_rsa_priv,pubfile=self.rec_rsa_pub)
+            self.own_rsa.update_keys(privfile=self.own_rsa_priv, pubfile=self.own_rsa_pub)
+            self.rec_rsa.update_keys(privfile=self.rec_rsa_priv, pubfile=self.rec_rsa_pub)
             self.update_ui()
 
     def toggle_md5(self):
@@ -356,7 +363,7 @@ class UiController():
 
         filename = select_file()
         if file_exists(filename):
-            secret = self.own_rsa.decrypt(open(filename,'rb').read())
+            secret = self.own_rsa.decrypt(open(filename, 'rb').read())
             self.aes = AesController(secret=secret)
             self.update_ui()
 
@@ -369,3 +376,25 @@ class UiController():
         filename = select_file()
         if filename:
             save_to_file(self.rec_rsa.encrypt(self.aes.secret), filename)
+
+    def toggle_stegano(self):
+        self.stegano = not self.stegano
+        self.update_ui()
+
+    def select_image(self):
+        filename = select_file(namefilter="images (*png *.jpg *.jpeg)")
+        if file_exists(filename):
+            self.stegano_image = filename
+            self.set_stegano_preview()
+
+    def set_stegano_preview(self):
+        picture = QtGui.QPixmap(self.stegano_image).scaled(QtCore.QSize(280, 190))
+        scene = QtGui.QGraphicsScene()
+
+        #scene.setSceneRect(-600,-600, 600,600)
+        scene.setSceneRect(0,0, 280, 190)
+        scene.addItem(QtGui.QGraphicsPixmapItem(picture))
+        view = self.ui.stegano_preview
+        view.setScene(scene)
+        view.setRenderHint(QtGui.QPainter.Antialiasing)
+        view.show()
