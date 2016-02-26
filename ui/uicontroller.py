@@ -23,7 +23,7 @@ class UiController():
         self.md5 = False
         self.stegano = False
         
-        self.stegano_image = "/home/switch87/workplace/pythonDjango/basicSecurity/icon.png"
+        self.stegano_image = "./avocadoTech.png"
         self.set_stegano_preview()
 
         self.update_ui()
