@@ -129,7 +129,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab_tools">
      <attribute name="title">
@@ -388,6 +388,43 @@
       </property>
       <property name="text">
        <string>Select File</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_aes">
+     <attribute name="title">
+      <string>RSA</string>
+     </attribute>
+     <widget class="QPushButton" name="button_load_aes">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>161</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Load Encrypted AES</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_save_aes">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>161</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Encrypt and save AES</string>
       </property>
      </widget>
     </widget>

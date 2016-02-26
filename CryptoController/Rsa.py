@@ -53,14 +53,20 @@ class RsaController():
     def generate_rsa(cls, bits):
         return rsa.newkeys(bits, poolsize=8)
 
-    def encrypt_public(self, string):
+    def encrypt(self, string):
         return rsa.encrypt(string, self.pubkey)
 
-    def decrypt_private(self, string):
+    def decrypt(self, string):
         return rsa.decrypt(string, self.privkey)
 
     def sign_with_md5(self, message):
         return rsa.sign(message, self.privkey, "MD5")
 
     def verify_signature(self, message, signature):
+        """
+
+        :param message:
+        :param signature:
+        :return: True or  VerificationError
+        """
         return rsa.verify(message, signature, self.pubkey)

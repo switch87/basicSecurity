@@ -36,7 +36,7 @@ def test_decoding_gives_original_text(aesc):
 
 
 def test_aes_controller_can_be_passed_an_existing_sipher(aesc):
-    aesc2 = AesController(cipher=aesc.cipher)
+    aesc2 = AesController(secret=aesc.cipher)
 
     text = "Ik ben identiek na Encoding!"
     assert aesc.encrypt(text) == aesc2.encrypt(text)

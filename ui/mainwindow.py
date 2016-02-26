@@ -33,3 +33,7 @@ class MainWindow(Ui_dialog):
         self.button_select_own_public.clicked.connect(self.controller.select_own_public_file)
         self.button_select_rec_private.clicked.connect(self.controller.select_rec_private_file)
         self.button_select_rec_public.clicked.connect(self.controller.select_rec_public_file)
+
+        # AES
+        self.button_load_aes.clicked.connect(self.controller.load_aes)
+        self.button_save_aes.clicked.connect(self.controller.save_aes)

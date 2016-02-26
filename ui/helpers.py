@@ -9,7 +9,7 @@ def get_file_name(file_dir):
 
 
 def save_to_file(data, file):
-    if check_file(file):
+    if file_exists(file):
         open(file, 'w').write(data)
 
 
@@ -21,7 +21,7 @@ def select_file():
     return dialog.selectedFiles()[0] or None
 
 
-def check_file(file):
+def file_exists(file):
     if not os.path.isfile(file) and not os.path.isdir(file):
         os.mknod(file)
     elif os.path.isdir(file):

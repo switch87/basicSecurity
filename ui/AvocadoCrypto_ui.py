@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'AvocadoCrypto.ui'
 #
-# Created: Thu Feb 25 15:48:06 2016
+# Created: Fri Feb 26 10:03:38 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -113,6 +113,17 @@ class Ui_dialog(object):
         self.button_select_rec_public.setGeometry(QtCore.QRect(220, 160, 85, 27))
         self.button_select_rec_public.setObjectName("button_select_rec_public")
         self.tab_widget_keys.addTab(self.tab_rsa, "")
+        self.tab_aes = QtGui.QWidget()
+        self.tab_aes.setObjectName("tab_aes")
+        self.button_load_aes = QtGui.QPushButton(self.tab_aes)
+        self.button_load_aes.setEnabled(False)
+        self.button_load_aes.setGeometry(QtCore.QRect(10, 10, 161, 26))
+        self.button_load_aes.setObjectName("button_load_aes")
+        self.button_save_aes = QtGui.QPushButton(self.tab_aes)
+        self.button_save_aes.setEnabled(False)
+        self.button_save_aes.setGeometry(QtCore.QRect(10, 50, 161, 26))
+        self.button_save_aes.setObjectName("button_save_aes")
+        self.tab_widget_keys.addTab(self.tab_aes, "")
         self.plain_text_edit = QtGui.QPlainTextEdit(dialog)
         self.plain_text_edit.setEnabled(False)
         self.plain_text_edit.setGeometry(QtCore.QRect(350, 140, 221, 111))
@@ -128,7 +139,7 @@ class Ui_dialog(object):
         self.check_box_md5.setObjectName("check_box_md5")
 
         self.retranslateUi(dialog)
-        self.tab_widget_keys.setCurrentIndex(0)
+        self.tab_widget_keys.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(dialog)
 
     def retranslateUi(self, dialog):
@@ -156,6 +167,9 @@ class Ui_dialog(object):
         self.button_select_rec_private.setText(QtGui.QApplication.translate("dialog", "Select File", None, QtGui.QApplication.UnicodeUTF8))
         self.button_select_rec_public.setText(QtGui.QApplication.translate("dialog", "Select File", None, QtGui.QApplication.UnicodeUTF8))
         self.tab_widget_keys.setTabText(self.tab_widget_keys.indexOf(self.tab_rsa), QtGui.QApplication.translate("dialog", "RSA", None, QtGui.QApplication.UnicodeUTF8))
+        self.button_load_aes.setText(QtGui.QApplication.translate("dialog", "Load Encrypted AES", None, QtGui.QApplication.UnicodeUTF8))
+        self.button_save_aes.setText(QtGui.QApplication.translate("dialog", "Encrypt and save AES", None, QtGui.QApplication.UnicodeUTF8))
+        self.tab_widget_keys.setTabText(self.tab_widget_keys.indexOf(self.tab_aes), QtGui.QApplication.translate("dialog", "RSA", None, QtGui.QApplication.UnicodeUTF8))
         self.button_file_select.setText(QtGui.QApplication.translate("dialog", "Select File", None, QtGui.QApplication.UnicodeUTF8))
         self.label_selected_file.setText(QtGui.QApplication.translate("dialog", "(no file selected)", None, QtGui.QApplication.UnicodeUTF8))
         self.check_box_md5.setText(QtGui.QApplication.translate("dialog", "MD5", None, QtGui.QApplication.UnicodeUTF8))

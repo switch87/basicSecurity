@@ -1,10 +1,11 @@
 import os
 
 from PySide import QtGui
+from rsa import VerificationError
 
 from CryptoController.Aes import AesController
 from CryptoController.Rsa import RsaController
-from ui.helpers import get_file_name, select_file, save_to_file, check_file
+from ui.helpers import get_file_name, select_file, save_to_file, file_exists
 
 
 class UiController():
@@ -30,6 +31,8 @@ class UiController():
             button_switch_rsa  enabled     bool
             button_decrypt     enabled     bool
             button_encrypt     enabled     bool
+            button_save_aes
+            button_load_aes
             line_own_public    text        string
             line_own_private   text        string
             line_rec_public    text        string
@@ -45,6 +48,9 @@ class UiController():
 
         self.ui.button_decrypt.setEnabled(True if self.aes else False)
         self.ui.button_encrypt.setEnabled(True if self.aes else False)
+
+        self.ui.button_save_aes.setEnabled(True if self.aes and self.rec_rsa_pub else False)
+        self.ui.button_load_aes.setEnabled(True if self.own_rsa_priv else False)
 
         self.ui.line_own_public.setText(self.own_rsa_pub)
         self.ui.line_own_private.setText(self.own_rsa_priv)
@@ -223,8 +229,16 @@ class UiController():
             self.aes.decrypt_file(open(self.fileName, 'rb'), open(out_file, 'wb'))
 
             if self.md5:
-                pass
-                # todo: check hash
+                try:
+                    md5_file = self.fileName+".md5"
+                    self.rec_rsa.verify_signature(open(out_file,'rb').read(), open(md5_file, 'rb').read())
+                    msgBox = QtGui.QMessageBox()
+                    msgBox.setText("The MD5 signature passed")
+                    msgBox.exec_()
+                except VerificationError:
+                    msgBox = QtGui.QMessageBox()
+                    msgBox.setText("VerificationError: The MD5 signature does not mach.")
+                    msgBox.exec_()
 
     def encrypt_file(self):
         """
@@ -239,7 +253,7 @@ class UiController():
         dialog.exec_()
         if len(dialog.selectedFiles()) != 0:
             out_file = dialog.selectedFiles()[0]
-            if check_file(out_file):
+            if file_exists(out_file):
                 self.aes.encrypt_file(open(self.fileName, 'rb'), open(out_file, 'wb'))
 
                 if self.md5:
@@ -333,3 +347,25 @@ class UiController():
         """
 
         self.md5 = not self.md5
+
+    def load_aes(self):
+        """
+        Decrypt AES secret with own private key and generate AES key
+        :return:
+        """
+
+        filename = select_file()
+        if file_exists(filename):
+            secret = self.own_rsa.decrypt(open(filename,'rb').read())
+            self.aes = AesController(secret=secret)
+            self.update_ui()
+
+    def save_aes(self):
+        """
+        Encrypt aes secret with receivers public key and save it to file
+        :return:
+        """
+
+        filename = select_file()
+        if filename:
+            save_to_file(self.rec_rsa.encrypt(self.aes.secret), filename)

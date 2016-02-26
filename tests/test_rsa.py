@@ -32,10 +32,10 @@ def test_rsa_client_must_have_public_key():
 def test_string_can_be_validated_with_md5_signature(rsacs):
     string = "Hallo allemaal!"
 
-    encrypted = rsacs.encrypt_public(string)
+    encrypted = rsacs.encrypt(string)
     signature = rsacs.sign_with_md5(string)
 
-    decrypted = rsacs.decrypt_private(encrypted)
+    decrypted = rsacs.decrypt(encrypted)
     assert rsacs.verify_signature(decrypted, signature)
 
 

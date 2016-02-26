@@ -7,22 +7,23 @@ class AesController():
     BLOCK_SIZE = 32
     PADDING = '{'
 
-    def __init__(self, cipher=None, **kwargs):
+    def __init__(self, secret=None, **kwargs):
         """
         Initialize new AES Controller.
-        If cipher is not given, generate a random cipher, else save given cipher.
+        If secret is not given, generate a random secret, else save given secret.
 
-        :param cipher: cipher
+        :param secret: secret
         :param kwargs:
         :return: None
         """
 
-        if cipher is None:
+        if secret is None:
             self.cipher = self.generate_random_cipher()
-        elif isinstance(cipher, str):
-            self.cipher = AES.new(cipher)
-        else:
-            self.cipher = cipher
+        elif isinstance(secret, str):
+            self.secret = secret
+            self.cipher = AES.new(secret)
+        # else:
+        #    self.secret = secret
 
     # one-liner to sufficiently pad the text to be encrypted
     def pad(self, s, **kwargs):
