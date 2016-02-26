@@ -5,7 +5,7 @@ from rsa import VerificationError
 
 from CryptoController.Aes import AesController
 from CryptoController.Rsa import RsaController
-from ui.helpers import get_file_name, select_file, save_to_file, file_exists
+from ui.helpers import get_file_name, select_file, save_to_file, make_file_exist, show_message
 
 
 class UiController():
@@ -225,27 +225,21 @@ class UiController():
         If MD5 checked compare hash
         """
 
-        dialog = QtGui.QFileDialog()
-        dialog.setFileMode(QtGui.QFileDialog.AnyFile)
-        dialog.setOption(QtGui.QFileDialog.ShowDirsOnly, False)
-        dialog.exec_()
-        if len(dialog.selectedFiles()) != 0:
-            out_file = dialog.selectedFiles()[0]
-            if not os.path.isfile(out_file):
-                os.mknod(out_file)
-            self.aes.decrypt_file(open(self.fileName, 'rb'), open(out_file, 'wb'))
+        out_file = select_file()
+        if out_file and make_file_exist(out_file):
+            if self.stegano:
+                self.aes.extract_from_image(self.fileName, self.fileName+".tmp")
+                self.aes.decrypt_file(open(self.fileName+".tmp", 'rb'), open(out_file, 'wb'))
+            else:
+                self.aes.decrypt_file(open(self.fileName, 'rb'), open(out_file, 'wb'))
 
             if self.md5:
                 try:
                     md5_file = self.fileName + ".md5"
                     self.rec_rsa.verify_signature(open(out_file, 'rb').read(), open(md5_file, 'rb').read())
-                    msgBox = QtGui.QMessageBox()
-                    msgBox.setText("The MD5 signature passed")
-                    msgBox.exec_()
+                    show_message("The MD5 signature passed")
                 except VerificationError:
-                    msgBox = QtGui.QMessageBox()
-                    msgBox.setText("VerificationError: The MD5 signature does not mach.")
-                    msgBox.exec_()
+                    show_message("VerificationError: The MD5 signature does not mach.")
 
     def encrypt_file(self):
         """
@@ -254,18 +248,17 @@ class UiController():
         If MD5 checked; generate hash
         """
 
-        dialog = QtGui.QFileDialog()
-        dialog.setFileMode(QtGui.QFileDialog.AnyFile)
-        dialog.setOption(QtGui.QFileDialog.ShowDirsOnly, False)
-        dialog.exec_()
-        if len(dialog.selectedFiles()) != 0:
-            out_file = dialog.selectedFiles()[0]
-            if file_exists(out_file):
+        out_file = select_file()
+        if make_file_exist(out_file):
+            if self.stegano:
+                self.aes.encrypt_file(open(self.fileName, 'rb'), open(out_file+'.tmp', 'wb'))
+                self.aes.save_in_image(open(out_file+'.tmp','rb').read(), self.stegano_image, out_file)
+            else:
                 self.aes.encrypt_file(open(self.fileName, 'rb'), open(out_file, 'wb'))
 
-                if self.md5:
-                    md5_file = out_file + ".md5"
-                    save_to_file(self.own_rsa.sign_with_md5(open(self.fileName, 'rb')), md5_file)
+            if self.md5:
+                md5_file = out_file + ".md5"
+                save_to_file(self.own_rsa.sign_with_md5(open(self.fileName, 'rb')), md5_file)
 
     def encrypt(self):
         """
@@ -362,7 +355,7 @@ class UiController():
         """
 
         filename = select_file()
-        if file_exists(filename):
+        if make_file_exist(filename):
             secret = self.own_rsa.decrypt(open(filename, 'rb').read())
             self.aes = AesController(secret=secret)
             self.update_ui()
@@ -383,7 +376,7 @@ class UiController():
 
     def select_image(self):
         filename = select_file(namefilter="images (*png *.jpg *.jpeg)")
-        if file_exists(filename):
+        if make_file_exist(filename):
             self.stegano_image = filename
             self.set_stegano_preview()
 

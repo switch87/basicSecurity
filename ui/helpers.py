@@ -10,7 +10,7 @@ def get_file_name(file_dir):
 
 
 def save_to_file(data, file):
-    if file_exists(file):
+    if make_file_exist(file):
         open(file, 'w').write(data)
 
 
@@ -24,9 +24,14 @@ def select_file(namefilter=None):
     return dialog.selectedFiles()[0] or None
 
 
-def file_exists(file):
-    if not os.path.isfile(file) and not os.path.isdir(file):
+def make_file_exist(file):
+    if file and not os.path.isfile(file) and not os.path.isdir(file):
         os.mknod(file)
-    elif os.path.isdir(file):
+    elif os.path.isdir(file) or file is None:
         return False
     return True
+
+def show_message(message):
+    msgBox = QtGui.QMessageBox()
+    msgBox.setText(message)
+    msgBox.exec_()

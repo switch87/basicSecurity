@@ -1,6 +1,10 @@
+import stepic
+from PIL import Image
 import base64
 import os
 from Crypto.Cipher import AES
+
+from ui.helpers import show_message
 
 
 class AesController():
@@ -74,3 +78,14 @@ class AesController():
 
         cls.secret = os.urandom(cls.BLOCK_SIZE)
         return AES.new(cls.secret)
+
+    def save_in_image(self, string, image_file, out_file):
+        if out_file[-4:] != ".png":
+            show_message("The output file should be a png-image")
+        image = Image.open(image_file)
+        image2 = stepic.encode(image, string)
+        image2.save(out_file)
+
+    def extract_from_image(self, image_file, out):
+        file = open(out, 'w')
+        file.write(stepic.decode(Image.open(image_file)))

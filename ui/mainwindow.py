@@ -43,5 +43,3 @@ class MainWindow(Ui_dialog):
         # stegano
         self.check_box_stegano.stateChanged.connect(self.controller.toggle_stegano)
         self.button_image_select.clicked.connect(self.controller.select_image)
-
-
