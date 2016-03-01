@@ -356,9 +356,12 @@ class UiController():
 
         filename = select_file()
         if make_file_exist(filename):
-            secret = self.own_rsa.decrypt(open(filename, 'rb').read())
-            self.aes = AesController(secret=secret)
-            self.update_ui()
+            try:
+                secret = self.own_rsa.decrypt(open(filename, 'rb').read())
+                self.aes = AesController(secret=secret)
+                self.update_ui()
+            except:
+                show_message("AES can not be decrypted")
 
     def save_aes(self):
         """
