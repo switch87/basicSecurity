@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'AvocadoCrypto.ui'
 #
-# Created: Fri Feb 26 11:12:31 2016
+# Created: Tue Mar  1 19:03:22 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -154,7 +154,7 @@ class Ui_dialog(object):
         self.check_box_md5.setObjectName("check_box_md5")
 
         self.retranslateUi(dialog)
-        self.tab_widget_keys.setCurrentIndex(3)
+        self.tab_widget_keys.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(dialog)
 
     def retranslateUi(self, dialog):
@@ -178,7 +178,7 @@ class Ui_dialog(object):
         self.tab_widget_keys.setTabText(self.tab_widget_keys.indexOf(self.tab_rsa), QtGui.QApplication.translate("dialog", "RSA", None, QtGui.QApplication.UnicodeUTF8))
         self.button_load_aes.setText(QtGui.QApplication.translate("dialog", "Load Encrypted AES", None, QtGui.QApplication.UnicodeUTF8))
         self.button_save_aes.setText(QtGui.QApplication.translate("dialog", "Encrypt and save AES", None, QtGui.QApplication.UnicodeUTF8))
-        self.tab_widget_keys.setTabText(self.tab_widget_keys.indexOf(self.tab_aes), QtGui.QApplication.translate("dialog", "RSA", None, QtGui.QApplication.UnicodeUTF8))
+        self.tab_widget_keys.setTabText(self.tab_widget_keys.indexOf(self.tab_aes), QtGui.QApplication.translate("dialog", "AES", None, QtGui.QApplication.UnicodeUTF8))
         self.button_gen_keys.setText(QtGui.QApplication.translate("dialog", "Generate all keys", None, QtGui.QApplication.UnicodeUTF8))
         self.button_gen_aes.setText(QtGui.QApplication.translate("dialog", "Generate AES", None, QtGui.QApplication.UnicodeUTF8))
         self.button_gen_own_rsa.setText(QtGui.QApplication.translate("dialog", "Generate own RSA", None, QtGui.QApplication.UnicodeUTF8))

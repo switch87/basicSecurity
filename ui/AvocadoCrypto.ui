@@ -129,7 +129,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab_rsa">
      <attribute name="title">
@@ -320,7 +320,7 @@
     </widget>
     <widget class="QWidget" name="tab_aes">
      <attribute name="title">
-      <string>RSA</string>
+      <string>AES</string>
      </attribute>
      <widget class="QPushButton" name="button_load_aes">
       <property name="enabled">
