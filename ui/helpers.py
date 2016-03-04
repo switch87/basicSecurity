@@ -2,7 +2,6 @@ import os
 import re
 
 from PySide import QtGui
-from tr import tr
 
 
 def get_file_name(file_dir):
@@ -30,6 +29,7 @@ def make_file_exist(file):
     elif os.path.isdir(file) or file is None:
         return False
     return True
+
 
 def show_message(message):
     msgBox = QtGui.QMessageBox()
